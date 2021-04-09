@@ -1,0 +1,9 @@
+{
+    "cSpell.words": [
+        "Afid",
+        "fileoverview",
+        "mondodb",
+        "pino"
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
+}
