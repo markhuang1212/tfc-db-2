@@ -15,7 +15,7 @@ export type Afid = string
  * Account Information Stored in database
  */
 export interface DBAccountDoc {
-    address: TfcAddress
+    address: TfcAddress // shared key
     recommender?: TfcAddress
     free_balance: Decimal128
     locked_balance: LockedBalanceRecord[]

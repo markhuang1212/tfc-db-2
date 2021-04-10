@@ -12,8 +12,10 @@ class DBAccount extends DBAbstract<DBAccountDoc> {
         super(client, dbName, 'accounts')
     }
 
-    setup(): Promise<void> {
-        throw new Error("Method not implemented.");
+    async setup() {
+
     }
 
 }
+
+export default DBAccount
