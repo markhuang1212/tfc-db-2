@@ -16,6 +16,9 @@
 /// @dev 此函数应在提交sector的时候由rnode调用，以支付sector押金。
 function sectorDeposit(address user, uint256 value, uint256 lockPeriod, string sector_afid)
 event Deposit(address user, uint256 value, uint256 unlockTime, string sector_afid)
+
+function sectorPunish(address pool, string sector_afid)
+event Deposit(address user, uint256 value, address pool, string sector_afid)
 ```
 
 ### 提现
@@ -65,6 +68,7 @@ event SeedConsumptionReward(address submitter, string seed_afid, string value);
 4. 每一次验证成功都要在DB中生成发放TFC收益（锁定三个月）。
 5. 当TFC收益解锁时，DB调用智能合约的rewardSectorVerification函数来记录一次解锁的分账。并将TFC转账给rnode。
 6. rewardSectorVerification函数执行的过程中会检查与sector_afid绑定的押金是否已经返还，如果还未返还，那么释放押金。
+7. 如果sector的验证没有通过，那么DB扣除当前还未解锁的所有TFC；如果Private链上的押金也未解锁，那么DB调用sectorPunish把该sector的押金全部扣除，扣除的押金会转账到pool账户中。
 
 ### Seed
 
