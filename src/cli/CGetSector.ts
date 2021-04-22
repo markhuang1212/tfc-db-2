@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs/promises'
 import { promisify } from 'util'
 
 /**
@@ -19,7 +19,7 @@ class CGetSector {
     async getAllSectors() {
         let result: string[] = []
         for (const path of this.sectorDirs) {
-            const ret = (await promisify(fs.readdir)(path)).filter(str => str.match('.*\.d'))
+            const ret = (await fs.readdir(path)).filter(str => str.match('.*\.d'))
             result.push(...ret);
         }
         return result
