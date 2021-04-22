@@ -5,11 +5,13 @@
  * 
  */
 
-import { Decimal128, Int32 } from "mongodb";
-
 export type TfcAddress = string
 
 export type Afid = string
+
+interface DBDocAbstract {
+    _id?: string
+}
 
 /**
  * Account Information Stored in database
@@ -18,8 +20,16 @@ export type Afid = string
  * is on TFC-Chain. It is only those accounts that
  * the TFC-db will need
  */
-export interface DBAccountDoc {
+export interface DBAccountDoc extends DBDocAbstract {
     address: TfcAddress
+    auth_keys: {
+        key: string
+        expire_by: Date
+    }[]
+}
+
+export const DBAccountDocDefault = {
+    auth_keys: []
 }
 
 /**
@@ -32,8 +42,9 @@ export interface DBReservedAccount extends DBAccountDoc {
 
 /**
  * Seed Information
+ * 
  */
-export interface DBSeedDoc {
+export interface DBSeedDoc extends DBDocAbstract {
     owner: TfcAddress // the person that uploaded the seed
     afid: Afid // the afid of the seed
 

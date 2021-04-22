@@ -14,6 +14,8 @@ class Config {
 
     db_name = 'tfc-db'
 
+    submit_seed_interval = 50000 * 60 // submit seed every minute
+
     port = 8081
 
 }
