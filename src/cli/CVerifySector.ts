@@ -22,7 +22,7 @@ class CVerifySector {
     async verifySector(afid: string, seed_hash: string) {
         const command = this.makeCommand(afid, seed_hash);
         const { stdout } = await promisify(exec)(`${this.afs_path} "${command}"`)
-        Pino().info(`check sector cli result`, { afid, stdout })
+        Pino().info({ afid, seed_hash, stdout }, `check sector cli result`)
         if (stdout.match('_r=true')) {
             return true;
         } else {
