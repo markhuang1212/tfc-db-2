@@ -1,6 +1,9 @@
 import Express from 'express'
 import Config from './Config'
 import PinoHttp from 'pino-http'
+import Pino from 'pino'
+import authMiddleware from './api/AuthMiddleware'
+import seedRouter from './api/SeedRouter'
 
 const app = Express()
 
@@ -9,6 +12,16 @@ const app = Express()
  */
 app.use(PinoHttp())
 
-app.listen(Config.shared.port, () => {
+/**
+ * Authentication of users
+ */
+app.use(authMiddleware)
 
+/**
+ * Handle APIs related to Seed
+ */
+app.use('/seed', seedRouter)
+
+app.listen(Config.shared.port, () => {
+    Pino().info(`Server starts listening at port ${Config.shared.port}`)
 })

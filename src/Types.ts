@@ -5,7 +5,7 @@
  * 
  */
 
-import { Decimal128 } from "mongodb";
+import { Decimal128, Int32 } from "mongodb";
 
 export type TfcAddress = string
 
@@ -13,13 +13,13 @@ export type Afid = string
 
 /**
  * Account Information Stored in database
+ * 
+ * It IS NOT the full account information that
+ * is on TFC-Chain. It is only those accounts that
+ * the TFC-db will need
  */
 export interface DBAccountDoc {
-    address: TfcAddress // shared key
-    recommender?: TfcAddress
-    free_balance: Decimal128
-    locked_balance: LockedBalanceRecord[]
-    next_unlock_date: Date
+    address: TfcAddress
 }
 
 /**
@@ -30,30 +30,26 @@ export interface DBReservedAccount extends DBAccountDoc {
     alias: string
 }
 
-
-export interface LockedBalanceRecord {
-    amount: Decimal128
-    unlock_at: Date
-}
-
-/**
- * Sector Information
- */
-export interface DBSectorDoc {
-    owner: TfcAddress
-    afid: Afid
-    last_verify: Date
-}
-
 /**
  * Seed Information
  */
 export interface DBSeedDoc {
     owner: TfcAddress // the person that uploaded the seed
-    evaluation: SeedEvaluationRecord
+    afid: Afid // the afid of the seed
+
+    num_likes: number
+    num_dislikes: number
+    evaluation: {
+        likes: TfcAddress[]
+        dislikes: TfcAddress[]
+    }
 }
 
-export interface SeedEvaluationRecord {
-    likes: TfcAddress[]
-    dislikes: TfcAddress[]
+export const DBSeedDocDefault = {
+    num_likes: 0,
+    num_dislikes: 0,
+    evaluation: {
+        likes: [],
+        dislikes: []
+    }
 }
