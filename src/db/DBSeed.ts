@@ -13,10 +13,13 @@ class DBSeed extends DBAbstract<DBSeedDoc> {
     }
 
     async setup() {
-        this.collection.createIndex({ afid: 1 })
+        this.collection.createIndex({ afid: 1 }, { unique: true })
     }
 
-    insertOne = this.collection.insertOne
+    async insertOne(doc: DBSeedDoc) {
+        const ret = await this.collection.insertOne(doc)
+        return ret
+    }
 
     async like(afid: Afid, liked_by: TfcAddress) {
         const ret = await this.collection.updateOne({ afid }, {
@@ -46,6 +49,25 @@ class DBSeed extends DBAbstract<DBSeedDoc> {
             throw Error(`No Seed with Afid ${afid}`)
         }
         return ret
+    }
+
+    async getOneSeedForVerificationPurpose() {
+
+        const cursor = this.collection.aggregate([
+            {
+                $match: { 'num_likes': { $gte: 3 }, 'used': false }
+            }, {
+                $sample: { size: 1 }
+            }
+        ])
+
+        return (await cursor.next()) ?? undefined
+    }
+
+    async setSeedAsUsed(afid: string) {
+        await this.collection.updateOne({ afid }, {
+            $set: { 'used': true }
+        })
     }
 
 }

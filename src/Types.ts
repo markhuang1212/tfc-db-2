@@ -37,6 +37,8 @@ export interface DBSeedDoc {
     owner: TfcAddress // the person that uploaded the seed
     afid: Afid // the afid of the seed
 
+    used: boolean
+
     num_likes: number
     num_dislikes: number
     evaluation: {
@@ -48,6 +50,7 @@ export interface DBSeedDoc {
 export const DBSeedDocDefault = {
     num_likes: 0,
     num_dislikes: 0,
+    used: false,
     evaluation: {
         likes: [],
         dislikes: []
