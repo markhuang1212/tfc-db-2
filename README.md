@@ -67,16 +67,47 @@ function uploadSector(afid: string, owner: string, private_key: string): void //
 }
 ```
 
+#### 上传Seed到TfcChain
+
+DB会定期（根据`seed_upload_period`参数）上传符合条件的Seed到TfcChain。Seed需要符合的条件为：`点赞数/点踩数 ≥ num_of_evaluation_needed`。`num_of_evaluation_needed`暂定为3。
+
+DB选择上传的Seed的方式为：在符合条件的Seed中随机选择。
+
 #### Seed分账
 
 Seed提交给TfcChain后，DB会收到TfcChain关于这个Seed的分账。DB需要将他们分给Seed的拥有者和点赞者（如果Seed通过），或者Seed的点踩者（如果Seed不通过）。（Seed在不通过的情况下是否会收到TfcChain分账待定。如果不会则不用考虑这种情况）
 
-Seed的分账由`percentage_to_owner`，`percentage_to_evaluator`，`num_of_evaluation_needed`这两个参数决定。`num_of_evaluation_needed`暂定为3，即DB收到3个赞/3个踩后会向TfcChain提交Seed结果。`percentage_to_owner + percentage_to_evaluator = 1`。
+Seed的分账由`percentage_to_owner`，`percentage_to_evaluator`这两个参数决定。`percentage_to_owner + percentage_to_evaluator = 1`。
 
-如果Seed的验证通过（点赞数>num_of_evaluation_needed，且点赞数>点踩数），那么`percentage_to_owner`比例的TFC会分给Seed的提交者，`percentage_to_evaluator`比例的TFC会分平均分给点赞的人。
+如果Seed的验证通过（点赞数>点踩数），那么`percentage_to_owner`比例的TFC会分给Seed的提交者，`percentage_to_evaluator`比例的TFC会分平均分给点赞的人。
 
-如果Seed的验证不通过（点踩数>num_of_evaluation_needed，且点踩数>点赞数），那么点踩的人均分奖励。
+如果Seed的验证不通过（点踩数>点赞数），那么点踩的人均分奖励。
 
 ### 运行所需要的API
 
 1. TfcChain
+
+### Database具体设计
+
+database的设计以性能和可分布式为目标。有一下几个table/collection
+
+#### Seed
+
+```ts
+interface DBSeedDoc {
+
+    afid: string // the afid of the seed. Indexed.
+    date: Date // upload date
+    owner: string // the person that uploaded the seed
+
+    used: boolean // 该Seed是否己经被提交给TfcChain用于验证。如果为True，则不可再此提交。已验证过的Seed理论上可以直接从DB中删除。
+
+    num_likes: number
+    num_dislikes: number
+
+    evaluation: {
+        likes: TfcAddress[] // 点赞的用户的TfcAddress。数组。
+        dislikes: TfcAddress[] // 点踩的用户的TfcAddress。数组。
+    }
+}
+```
