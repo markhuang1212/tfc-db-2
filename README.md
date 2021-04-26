@@ -1,6 +1,6 @@
 # TFC链下程序设计
 
-TFC链下程序分为两部分。一部分在RNode/超级节点上运行，负责提供sector的提交和验证。另一部分为一个可以分布式部署的database，用于储存Seed的点赞和点踩的相关信息。
+TFC链下程序分为两部分。一部分在RNode/超级节点上运行，负责提供sector的提交和验证。另一部分为一个可以分布式部署的database，帮助TfcChain收集Seed的点赞、点踩的相关信息。
 
 ## RNode/超级节点部分
 
@@ -27,7 +27,7 @@ function uploadSector(afid: string, owner: string, private_key: string): void //
 
 #### 分账给FNode
 
-具体分账方式取决于RNode的配置。Rnode可以指定`percentage_to_distribute`和`distribute_period`三个参数，决定分账给FNode的比例和分账的周期。如果`percentage_to_distribute`为0.5，则rnode获得的分账有50%会分给所有的FNode，每个FNode获得的比例由该FNode贡献的空间决定。
+具体分账方式取决于RNode的配置。Rnode可以指定`percentage_to_distribute`和`distribute_period`三个参数，决定分账给FNode的比例和分账的周期。举例来说：如果`percentage_to_distribute`为0.5，则rnode获得的分账有50%会分给所有的FNode，每个FNode获得的比例由该FNode贡献的空间决定。
 
 ### 程序运行需要的API
 
