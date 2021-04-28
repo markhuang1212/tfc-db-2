@@ -5,12 +5,14 @@
  * 
  */
 
+import { ObjectId } from "bson"
+
 export type TfcAddress = string
 
 export type Afid = string
 
 interface DBDocAbstract {
-    _id?: string
+    _id?: ObjectId
 }
 
 /**

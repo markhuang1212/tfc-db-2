@@ -1,7 +1,7 @@
 import CGetSector from "./CGetSector"
 import CVerifySector from "./CVerifySector"
 
-test.skip('Verify Sector', async () => {
+test('Verify Sector', async () => {
     const sectors = await CGetSector.shared.getAllSectors();
     const ret1 = await CVerifySector.shared.verifySector('some-random-sector', '1234');
     expect(ret1).toBe(false)
