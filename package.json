@@ -5,6 +5,7 @@
         "test": "jest --detectOpenHandles"
     },
     "dependencies": {
+        "@tfc-chain/adapter": "^1.0.2",
         "@types/express": "^4.17.11",
         "@types/jest": "^26.0.22",
         "@types/mongodb": "^3.6.12",
