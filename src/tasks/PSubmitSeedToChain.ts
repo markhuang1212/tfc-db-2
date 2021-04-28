@@ -10,7 +10,7 @@ class PSubmitSeedToChain extends PTask {
         const doc = await DBSeed.shared.getOneSeedForVerificationPurpose()
 
         if (doc === undefined)
-            return
+            return // nothing to submit
 
         // TODO: submit it to Tfc-Chain
 
