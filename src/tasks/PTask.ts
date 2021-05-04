@@ -1,9 +1,4 @@
-import { setTimeout as __setTimeout } from 'timers'
-import { promisify } from 'util'
-
-const setTimeout = (ms: number) => {
-    return new Promise((res) => __setTimeout(res, ms))
-}
+import { setTimeout } from 'timers/promises'
 
 /**
  * An Interface for implementing periodic tasks.
@@ -17,14 +12,19 @@ abstract class PTask {
     async runTask() {
         while (true) {
             await setTimeout(this.period)
-            this.task()
+            try {
+                this.task()
+            } catch (e) {
+                console.log('Error when executing task')
+                console.log(e.stack ?? e)
+            }
         }
     }
 
     constructor(period: number) {
         this.period = period
     }
-    
+
 }
 
 export default PTask

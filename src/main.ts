@@ -4,6 +4,8 @@ import PinoHttp from 'pino-http'
 import Pino from 'pino'
 import authMiddleware from './api/AuthMiddleware'
 import seedRouter from './api/SeedRouter'
+import PTask from './tasks/PTask'
+import PSubmitSeedToChain from './tasks/PSubmitSeedToChain'
 
 const app = Express()
 
@@ -25,3 +27,8 @@ app.use('/seed', seedRouter)
 app.listen(Config.shared.port, () => {
     Pino().info(`Server starts listening at port ${Config.shared.port}`)
 })
+
+/**
+ * Submit seed to Tfc-Chain peridocally
+ */
+PSubmitSeedToChain.shared.runTask()
