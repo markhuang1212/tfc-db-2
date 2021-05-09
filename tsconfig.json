@@ -7,6 +7,8 @@
         "esModuleInterop": true,
         "module": "CommonJS",
         "strict": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "rootDir": "src",
+        "outDir": "dist"
     }
 }
