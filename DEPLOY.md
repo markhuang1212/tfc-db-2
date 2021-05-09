@@ -39,6 +39,8 @@ sudo npm i -g yarn
 
 将应用解压，并进入应用的根目录。
 
+运行应用前需配置应用。配置选项在`src/Config.ts`。里面有关于每个选项含义的注释。
+
 ```bash
 yarn
 yarn test # 测试应用是否报错
