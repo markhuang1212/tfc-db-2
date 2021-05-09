@@ -5,19 +5,17 @@ import { setTimeout } from 'timers/promises'
  *
  */
 abstract class PTask {
-    abstract task(): any
+    abstract task(): Promise<any>
 
     period: number
 
     async runTask() {
         while (true) {
             await setTimeout(this.period)
-            try {
-                this.task()
-            } catch (e) {
+            this.task().catch(err => {
                 console.log('Error when executing task')
-                console.log(e.stack ?? e)
-            }
+                console.log(err.stack ?? err)
+            })
         }
     }
 

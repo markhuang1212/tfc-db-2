@@ -3,29 +3,24 @@
  * 
  * This object handles the user-configurable settings
  * 
- * For now, everything is  set to default
+ * For now, everything is set to default
  * 
  */
 class Config {
 
     static shared = new Config()
 
-    mongodb_uri = 'mongodb://localhost:27017'
+    mongodb_uri = 'mongodb://localhost:27017'       // endpoint for mongo-db
+    db_name = 'tfc-db'                              // mongo-db database name
 
-    db_name = 'tfc-db'
+    submit_seed_interval = 50000 * 60               // submit seed every 5 minutes
 
-    submit_seed_interval = 50000 * 60 // submit seed every minute
+    port = 8081                                     // port that the server runs
 
-    port = 8081
+    chain_endpoint = 'http://localhost:8545'        // endpoint for tfc-chain
+    chain_tfc_addr = ''                             // contract address of TFC
 
-    afs_path = '/aos/ks/afs_bin/afs-x86_64b'
-
-    chain_endpoint = 'http://localhost:8545'
-    chain_tfc_addr = ''
-
-    rnode_privkey = ''
-    verifier_prikey = ''
-    seed_submitter_privkey = ''
+    seed_submitter_privkey = ''                     // private key with SeedSubmitterRole
 
 }
 

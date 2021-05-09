@@ -4,7 +4,6 @@ import PinoHttp from 'pino-http'
 import Pino from 'pino'
 import authMiddleware from './api/AuthMiddleware'
 import seedRouter from './api/SeedRouter'
-import PTask from './tasks/PTask'
 import PSubmitSeedToChain from './tasks/PSubmitSeedToChain'
 
 const app = Express()

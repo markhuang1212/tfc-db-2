@@ -14,6 +14,8 @@ class DBSeed extends DBAbstract<DBSeedDoc> {
 
     async setup() {
         this.collection.createIndex({ afid: 1 }, { unique: true })
+        this.collection.createIndex({ num_likes: 1 })
+        this.collection.createIndex({ num_dislikes: 1 })
     }
 
     async insertOne(doc: DBSeedDoc) {

@@ -3,7 +3,6 @@
  */
 
 import { Router } from 'express'
-import { IncomingMessage, ServerResponse } from 'http';
 
 declare module 'http' {
     interface IncomingMessage {

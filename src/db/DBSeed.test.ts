@@ -67,3 +67,8 @@ test('Get Seed for Verification', async () => {
     const doc2 = await dbSeed.getOneSeedForVerificationPurpose()
     expect(doc2).toBeUndefined()
 })
+
+afterAll(async () => {
+    await client.close()
+    await db.stop()
+})
