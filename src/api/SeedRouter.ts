@@ -16,6 +16,7 @@ seedRouter.post('/upload', async (req, res) => {
     if (typeof (body.afid) !== 'string' || typeof (body.owner) !== 'string') {
         req.log.info('Input error')
         res.status(400).end()
+        return
     }
 
     await DBSeed.shared.insertOne({

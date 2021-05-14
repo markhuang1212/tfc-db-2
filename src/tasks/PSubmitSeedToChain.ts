@@ -3,6 +3,7 @@ import SeedSubmitterShared from "../chain/SeedSubmitterShared";
 import Config from "../Config";
 import DBSeed from "../db/DBSeed";
 import PTask from "./PTask";
+import Pino from 'pino'
 
 class PSubmitSeedToChain extends PTask {
 
@@ -16,13 +17,20 @@ class PSubmitSeedToChain extends PTask {
     }
 
     async task() {
+
         const doc = await DBSeed.shared.getOneSeedForVerificationPurpose()
 
-        if (doc === undefined)
+        if (doc === undefined) {
+            Pino().info('No seed to upload')
             return // nothing to submit
+        }
+
+        Pino().info('Start uploading seed to chain')
 
         await this.seedSubmitter.submitSeed(Buffer.from(doc.afid, 'hex'))
         await DBSeed.shared.setSeedAsUsed(doc.afid)
+
+        Pino().info('Uploading success')
 
     }
 

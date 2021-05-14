@@ -5,8 +5,13 @@ import Pino from 'pino'
 import authMiddleware from './api/AuthMiddleware'
 import seedRouter from './api/SeedRouter'
 import PSubmitSeedToChain from './tasks/PSubmitSeedToChain'
+import mongoClientShared from './db/MongoClientShared'
 
 const app = Express()
+
+mongoClientShared.connect().then(() => {
+    Pino().info('Mongo Client connected')
+})
 
 /**
  * Automatic Logging of requests
