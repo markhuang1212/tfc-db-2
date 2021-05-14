@@ -15,24 +15,24 @@
 ```ts
 // POST /seed/upload
 {
-    afid: string,
-    owner: string // 提交Seed的用户的TfcAddress
+    afid: string, // 提交的Seed的Mini-Afid，长度为56character
+    owner: string // 提交Seed的用户的TfcAddress。注意，提交的地址不能包含0x prefix，长度为40character。
 }
 
 // POST /seed/like
 {
-    afid: string
+    afid: string // 提交的Seed的Mini-Afid，长度为56character
     liked_by: string // 点赞的用户的TfcAddress
 }
 
 // POST /seed/dislike
 {
-    afid: string
+    afid: string // 提交的Seed的Mini-Afid，长度为56character
     liked_by: string // 点踩的用户的TfcAddress
 }
 ```
 
-本程序暂时只会收集点赞和点踩信息。
+本程序暂时只会收集点赞和点踩信息，对点踩信息不会进行下一步处理。
 
 ### 上传Seed到TfcChain
 

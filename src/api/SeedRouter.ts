@@ -15,8 +15,16 @@ seedRouter.post('/upload', async (req, res) => {
 
     if (typeof (body.afid) !== 'string' || typeof (body.owner) !== 'string') {
         req.log.info('Input error')
-        res.status(400).end()
+        res.status(400).end('Missing Body')
         return
+    }
+
+    if (Buffer.from(body.afid, 'hex').length !== 28) {
+        res.status(400).end('Invalid afid length')
+    }
+
+    if (Buffer.from(body.owner, 'hex').length !== 20) {
+        res.status(400).end('Invalid owner length')
     }
 
     await DBSeed.shared.insertOne({

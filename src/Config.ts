@@ -13,7 +13,7 @@ class Config {
     mongodb_uri = 'mongodb://localhost:27017'       // endpoint for mongo-db
     db_name = 'tfc-db-2'                            // mongo-db database name
 
-    submit_seed_interval = 5000                     // submit seed every 5 minutes
+    submit_seed_interval = 5 * 60 * 1000            // submit seed every 5 minutes (unit: ms)
 
     port = 8081                                     // port that the server runs
 

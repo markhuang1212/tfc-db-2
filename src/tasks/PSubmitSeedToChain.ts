@@ -4,6 +4,7 @@ import Config from "../Config";
 import DBSeed from "../db/DBSeed";
 import PTask from "./PTask";
 import Pino from 'pino'
+import { randomBytes } from 'crypto'
 
 class PSubmitSeedToChain extends PTask {
 
@@ -19,18 +20,26 @@ class PSubmitSeedToChain extends PTask {
     async task() {
 
         const doc = await DBSeed.shared.getOneSeedForVerificationPurpose()
+        let afid: Buffer
 
         if (doc === undefined) {
-            Pino().info('No seed to upload')
-            return // nothing to submit
+            Pino().info('No seed to upload, generate random number.')
+            afid = randomBytes(28)
+        } else {
+            afid = Buffer.from(doc.afid, 'hex')
         }
 
         Pino().info('Start uploading seed to chain')
 
-        await this.seedSubmitter.submitSeed(Buffer.from(doc.afid, 'hex'))
-        await DBSeed.shared.setSeedAsUsed(doc.afid)
-
-        Pino().info('Uploading success')
+        try {
+            await this.seedSubmitter.submitSeed(afid)
+            if (doc) {
+                await DBSeed.shared.setSeedAsUsed(doc.afid)
+            }
+            Pino().info('Uploading success')
+        } catch {
+            Pino().info('Submit seed error')
+        }
 
     }
 
