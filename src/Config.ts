@@ -17,10 +17,13 @@ class Config {
 
     port = 8081                                     // port that the server runs
 
-    chain_endpoint = 'http://localhost:8545'        // endpoint for tfc-chain
-    chain_tfc_addr = ''                             // contract address of TFC
+    chain_endpoint = ''        
+                                                    // endpoint for tfc-chain
+    chain_tfc_addr = ''
+                                                    // contract address of TFC
 
-    seed_submitter_privkey = ''                     // private key with SeedSubmitterRole
+    seed_submitter_privkey = ''
+                                                    // private key with SeedSubmitterRole
 
 }
 

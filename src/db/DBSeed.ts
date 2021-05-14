@@ -57,7 +57,9 @@ class DBSeed extends DBAbstract<DBSeedDoc> {
 
         const cursor = this.collection.aggregate([
             {
-                $match: { 'num_likes': { $gte: 3 }, 'used': false }
+                $match: {
+                    'used': false
+                }
             }, {
                 $sample: { size: 1 }
             }

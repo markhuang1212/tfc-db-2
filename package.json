@@ -3,7 +3,7 @@
     "scripts": {
         "start": "ts-node src/main.ts",
         "build": "tsc",
-        "test": "jest"
+        "test": "jest src/"
     },
     "dependencies": {
         "@tfc-chain/adapter": "^1.0.2",

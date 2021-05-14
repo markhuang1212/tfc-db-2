@@ -61,9 +61,10 @@ test('Like and Dislike', async () => {
 
 test('Get Seed for Verification', async () => {
     const doc1 = await dbSeed.getOneSeedForVerificationPurpose()
-    expect(doc1?.afid).toBe('seed-afid-1')
+    expect(doc1).toBeTruthy()
 
     await dbSeed.setSeedAsUsed('seed-afid-1')
+    await dbSeed.setSeedAsUsed('seed-afid-2')
     const doc2 = await dbSeed.getOneSeedForVerificationPurpose()
     expect(doc2).toBeUndefined()
 })
