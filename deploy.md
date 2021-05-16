@@ -1,6 +1,6 @@
 # Tfc-Db-2 部署
 
-此部署指南适用于Ubuntu 18.04，20.04，21.04.
+此部署指南适用于Ubuntu >= 18.04.
 
 ## 部署前
 
@@ -13,8 +13,6 @@
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
-
-此应用只需要node和npm可执行文件在$PATH中，node和npm也可以用其他方式安装。
 
 2. 安装MongoDB
 
@@ -39,17 +37,25 @@ sudo npm i -g yarn
 
 将应用解压，并进入应用的根目录。
 
+```bash
+yarn install
+```
+
+5. 配置并编译
+
 运行应用前需配置应用。配置选项在`src/Config.ts`。里面有关于每个选项含义的注释。
 
+配置完成后可以进行编译。
+
 ```bash
-yarn
 yarn test # 测试应用是否报错
-yarn run build
+yarn run build # 编译
 
 # 启动（开发环境）
 yarn start
 
 # 启动（生产环境）
-node dist/main.js
+# ./node_modules/.bin/pino-pretty 的作用是格式化日志
+node dist/main.js | ./node_modules/.bin/pino-pretty
 
 ```
