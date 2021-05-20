@@ -44,7 +44,7 @@ Seed提交给TfcChain后，DB会收到TfcChain关于这个Seed的分账。DB需�
 
 ## 程序调用的API
 
-本程序运行需要拥有SeedSubmitter Role的private key。调用`@tfc-chain/adapter`里的`submitSeed()`函数将Seed提交给tfc-chain
+本程序运行需要拥有SeedSubmitter Role的private key。调用`@tfc-chain/adapter`里的`submitSeed()`函数将Seed提交给tfc-chai；调用`transfer()`和`onReceiveReward()`对Seed的提交者进行分账。
 
 ## Database具体设计
 
