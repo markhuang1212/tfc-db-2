@@ -14,8 +14,9 @@ class DBSeed extends DBAbstract<DBSeedDoc> {
 
     async setup() {
         this.collection.createIndex({ afid: 1 }, { unique: true })
-        this.collection.createIndex({ num_likes: 1 })
-        this.collection.createIndex({ num_dislikes: 1 })
+        this.collection.createIndex({ verification: 1 }, { unique: true })
+        // this.collection.createIndex({ num_likes: 1 })
+        // this.collection.createIndex({ num_dislikes: 1 })
     }
 
     async insertOne(doc: DBSeedDoc) {
@@ -72,6 +73,17 @@ class DBSeed extends DBAbstract<DBSeedDoc> {
         await this.collection.updateOne({ afid }, {
             $set: { 'used': true }
         })
+    }
+
+    async updateSeedVerification(afid: string, verification: string) {
+        await this.collection.updateOne({ afid }, {
+            $set: { verification }
+        })
+    }
+
+    async getSeedByVerification(verification: string) {
+        const ret = await this.collection.findOne({ verification })
+        return ret ?? undefined
     }
 
 }

@@ -2,7 +2,7 @@ import { Deployer } from '@tfc-chain/adapter'
 
 const endpoint = 'http://localhost:8545'
 const privateKey = '3b95a4c29114e2c9fac69813aaf5199b6c2b7f142177e6f1834df94c7c3c312d'
-const contract_address = '0x56d58799F29f9187a3124E8605eBCA53f047D85d'
+const contract_address = '0xD2729225e815e49F1058827Bc12a7F72AF0F4778'
 
 const deployer = new Deployer(endpoint, privateKey, contract_address)
 

@@ -19,7 +19,7 @@ class Config {
 
     chain_endpoint = 'http://localhost:8545'        
                                                     // endpoint for tfc-chain
-    chain_tfc_addr = '0x56d58799F29f9187a3124E8605eBCA53f047D85d'
+    chain_tfc_addr = '0xD2729225e815e49F1058827Bc12a7F72AF0F4778'
                                                     // contract address of TFC
 
     seed_submitter_privkey = 'd9e87e5a945ad4ac804c6715faa9ca0316306f2159971a3a2e92c62e3b9b95f1'

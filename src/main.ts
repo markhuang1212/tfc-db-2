@@ -6,6 +6,7 @@ import authMiddleware from './api/AuthMiddleware'
 import seedRouter from './api/SeedRouter'
 import PSubmitSeedToChain from './tasks/PSubmitSeedToChain'
 import mongoClientShared from './db/MongoClientShared'
+import IDistributeAward from './tasks/IDistributeAward'
 
 const app = Express()
 
@@ -36,3 +37,8 @@ app.listen(Config.shared.port, () => {
  * Submit seed to Tfc-Chain peridocally
  */
 PSubmitSeedToChain.shared.runTask()
+
+/**
+ * Distribute award to the persion that submitted the seed
+ */
+IDistributeAward.shared.initialize()

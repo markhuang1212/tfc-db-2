@@ -25,6 +25,8 @@ export interface DBSeedDoc extends DBDocAbstract {
 
     used: boolean
 
+    verification?: string
+
     num_likes: number
     num_dislikes: number
     evaluation: {

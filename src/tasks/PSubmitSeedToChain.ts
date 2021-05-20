@@ -32,9 +32,10 @@ class PSubmitSeedToChain extends PTask {
         Pino().info('Start uploading seed to chain')
 
         try {
-            await this.seedSubmitter.submitSeed(afid)
+            const ret = await this.seedSubmitter.submitSeed(afid)
             if (doc) {
                 await DBSeed.shared.setSeedAsUsed(doc.afid)
+                await DBSeed.shared.updateSeedVerification(doc.afid, ret.verification)
             }
             Pino().info('Uploading success')
         } catch {
